@@ -7,8 +7,11 @@
 class Dog :
 	public Animal
 {
+protected:
+	const int maxweight = 7;
 public:
 	Dog();
+
 	virtual ~Dog();
 };
 

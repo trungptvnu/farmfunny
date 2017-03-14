@@ -14,7 +14,7 @@ protected:
 	int m_happyindex;
 	int m_intelligentindex;
 	int m_price;
-	int maxweight;
+	const int maxweight;
 
 public:
 	virtual void Sound() = 0;

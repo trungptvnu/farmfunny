@@ -7,6 +7,8 @@
 class Cat :
 	public Animal
 {
+protected:
+	const int maxweight = 4;
 public:
 	Cat();
 	~Cat();
