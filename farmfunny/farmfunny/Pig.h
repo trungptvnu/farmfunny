@@ -9,8 +9,10 @@ class Pig :
 {
 protected:
 	const int maxweight = 10;
+	int countSoundPig; 
 public:
 	Pig();
 	virtual ~Pig();
+	void Sound();
 };
 

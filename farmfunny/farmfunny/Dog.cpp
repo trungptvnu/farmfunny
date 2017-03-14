@@ -5,6 +5,10 @@
 #include<cmath>
 
 
+void Dog::tranin()
+{
+}
+
 Dog::Dog()
 {
 }

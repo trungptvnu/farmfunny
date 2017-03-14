@@ -12,5 +12,8 @@ protected:
 public:
 	Cat();
 	~Cat();
+	string Sound();
+	int getCountSound();
+
 };
 

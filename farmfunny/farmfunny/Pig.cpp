@@ -13,3 +13,8 @@ Pig::Pig()
 Pig::~Pig()
 {
 }
+
+void Pig::Sound()
+{
+	cout << " Oink !" endl;
+}

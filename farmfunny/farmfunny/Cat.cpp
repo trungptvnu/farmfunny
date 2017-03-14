@@ -13,3 +13,15 @@ Cat::Cat()
 Cat::~Cat()
 {
 }
+
+string Cat::Sound()
+{
+	return "Meow";
+}
+
+int Cat::getCountSound()
+{
+	return 0;
+}
+
+

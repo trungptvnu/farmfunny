@@ -12,5 +12,7 @@ protected:
 public:
 	Chicken();
 	virtual ~Chicken();
+	string sound();
+	int getCountSound();
 };
 

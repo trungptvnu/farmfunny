@@ -10,6 +10,7 @@ class Dog :
 protected:
 	const int maxweight = 7;
 public:
+	void tranin();
 	Dog();
 
 	virtual ~Dog();

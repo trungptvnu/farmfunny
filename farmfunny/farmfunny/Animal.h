@@ -14,13 +14,18 @@ protected:
 	int m_happyindex;
 	int m_intelligentindex;
 	int m_price;
-	const int maxweight;
+	int m_maxweight;
+	bool isEat;
+	int countEat; 
+	int countSound;
 
 public:
-	virtual void Sound() = 0;
+	virtual string Sound() = 0;
 	virtual void Eat() = 0;
 	virtual void Die() = 0;
 	virtual void GoOut() = 0;
+	virtual void getWeight() = 0;
+	virtual int getCountSound() = 0;
 	Animal();
 	virtual ~Animal();
 };
