@@ -4,13 +4,12 @@
 #include<list>
 #include<cmath>
 
+using namespace std;
 
-void Dog::train()
-{
-}
 
 Dog::Dog()
 {
+	m_maxweight = 7;
 }
 
 
@@ -25,8 +24,8 @@ string Dog::Sound()
 
 void Dog::Eat()
 {
-	if (m_age > 3) {
-
+	if (m_age > 3 && m_happyindex >=3) {
+		int food = food - 3;
 	}
 	else
 		cout << "don't eat" << endl;
@@ -34,16 +33,26 @@ void Dog::Eat()
 
 void Dog::Reproduce()
 {
+	if (m_age==22 && m_weight==2 && m_happyindex==10) {
+
+
+	}
 
 }
 
 void Dog::GoOut()
 {
+	m_happyindex = m_happyindex + 2;
 
 }
  
 void Dog::Die()
 {
 
+}
+
+void Dog::train()
+{
+	m_intelligentindex = m_intelligentindex + 2;
 }
 

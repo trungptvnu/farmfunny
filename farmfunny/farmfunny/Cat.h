@@ -13,6 +13,10 @@ public:
 	Cat();
 	~Cat();
 	string Sound();
+	void Eat();
+	void Reproduce();
+	void GoOut();
+	void Die();
 	int getCountSound();
 
 };

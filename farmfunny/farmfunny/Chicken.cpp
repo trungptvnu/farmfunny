@@ -15,10 +15,6 @@ Chicken::~Chicken()
 {
 }
 
-int Chicken::getCountSound()
-{ 
-	
-}
 
 string Chicken::Sound()
 {

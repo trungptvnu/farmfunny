@@ -39,6 +39,9 @@
     <ClInclude Include="MacDonald.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AnimalFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animal.cpp">
@@ -66,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MacDonald.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimalFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -18,6 +18,7 @@ protected:
 	bool isEat;
 	int countEat; 
 	int countSound;
+	int m_status;
 
 public:
 	virtual string Sound() = 0;

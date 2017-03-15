@@ -13,6 +13,10 @@ public:
 	Chicken();
 	virtual ~Chicken();
 	string sound();
-	int getCountSound();
+	string Sound();
+	void Eat();
+	void Reproduce();
+	void GoOut();
+	void Die();
 };
 

@@ -10,10 +10,15 @@ class Dog :
 protected:
 	const int maxweight = 7;
 public:
-	String sound();
+	string sound();
+	void Reproduce();
+	void GoOut();
+	void Die();
 	void train();
 	Dog();
 
 	virtual ~Dog();
+	string Sound();
+	void Eat();
 };
 
