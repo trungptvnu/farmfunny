@@ -119,6 +119,7 @@
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Pig.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="TimeManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimalFactory.cpp" />
@@ -131,6 +132,7 @@
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Pig.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Timemanager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

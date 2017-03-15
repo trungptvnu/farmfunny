@@ -49,3 +49,8 @@ void Cat::Die()
 
 }
 
+void Cat::updateWeight()
+{
+	m_weight = m_weight + 1;
+}
+

@@ -43,3 +43,9 @@ void Pig::Die()
 {
 
 }
+
+void Pig::updateWeight()
+{
+
+
+}

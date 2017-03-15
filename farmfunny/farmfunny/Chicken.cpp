@@ -42,4 +42,9 @@ void Chicken::Die()
 
 }
 
+void Chicken::updateWeight()
+{
+	m_weight = m_weight + 0.2;
+
+}
 

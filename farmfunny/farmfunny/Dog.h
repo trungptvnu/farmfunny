@@ -1,5 +1,6 @@
 #pragma once
 #include "Animal.h"
+#include "ResourceManager.h"
 #include<iostream>
 #include <string>
 #include<list>
@@ -15,6 +16,7 @@ public:
 	void GoOut();
 	void Die();
 	void train();
+	void updateWeight();
 	Dog();
 
 	virtual ~Dog();

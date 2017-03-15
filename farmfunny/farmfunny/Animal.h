@@ -28,6 +28,8 @@ public:
 	virtual void Die() = 0;
 	virtual void getWeight() = 0;
 	virtual int getCountSound() = 0;
+	virtual void updateWeight();
+
 	Animal();
 	virtual ~Animal();
 };

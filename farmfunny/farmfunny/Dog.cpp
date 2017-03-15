@@ -1,8 +1,10 @@
 #include "Dog.h"
+#include "ResourceManager.h"
 #include<iostream>
 #include <string>
 #include<list>
 #include<cmath>
+
 
 using namespace std;
 
@@ -31,7 +33,7 @@ string Dog::Sound()
 void Dog::Eat()
 {
 	if (m_age > 3 && m_happyindex >=3) {
-		int food = food - 3;
+		 int food= food - 3;
 	}
 	else
 		cout << "don't eat" << endl;
@@ -62,3 +64,7 @@ void Dog::train()
 	m_intelligentindex = m_intelligentindex + 2;
 }
 
+void Dog::updateWeight()
+{
+	m_weight = m_weight + 1;
+}

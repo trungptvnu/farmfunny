@@ -18,5 +18,6 @@ public:
 	void Reproduce();
 	void GoOut();
 	void Die();
+	void updateWeight();
 };
 

@@ -17,6 +17,7 @@ public:
 	void Reproduce();
 	void GoOut();
 	void Die();
+	void updateWeight();
 	int getCountSound();
 
 };
