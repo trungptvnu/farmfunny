@@ -14,7 +14,32 @@ Pig::~Pig()
 {
 }
 
-void Pig::Sound()
+string Pig::Sound()
 {
-	cout << " Oink !" endl;
+	return "Oink";
+}
+
+void Pig::Eat()
+{
+	if (m_age > 2) {
+
+	}
+	else
+		cout << "don't eat" << endl;
+
+}
+
+void Pig::Reproduce()
+{
+
+}
+
+void Pig::GoOut()
+{
+
+}
+
+void Pig::Die()
+{
+
 }

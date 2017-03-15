@@ -9,6 +9,12 @@
 using namespace std;
 
 
+int Animal::getCountSound()
+{
+	
+	return 0;
+}
+
 Animal::Animal()
 {
 }

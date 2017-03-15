@@ -15,14 +15,35 @@ Chicken::~Chicken()
 {
 }
 
-string Chicken::sound()
-{
-	return "Bawak";
-}
-
 int Chicken::getCountSound()
 { 
-	return 0;
+	
+}
+
+string Chicken::Sound()
+{
+	return "Bawk";
+}
+
+void Chicken::Eat()
+{
+	
+
+}
+
+void Chicken::Reproduce()
+{
+
+}
+
+void Chicken::GoOut()
+{
+
+}
+
+void Chicken::Die()
+{
+
 }
 
 

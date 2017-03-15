@@ -14,14 +14,38 @@ Cat::~Cat()
 {
 }
 
-string Cat::Sound()
-{
-	return "Meow";
-}
-
 int Cat::getCountSound()
 {
 	return 0;
 }
 
+string Cat::Sound()
+{
+	return "Meow";
+}
+
+void Cat::Eat()
+{
+	if (m_age > 2) {
+
+	}
+	else
+		cout << "don't eat";
+
+}
+
+void Cat::Reproduce()
+{
+
+}
+
+void Cat::GoOut()
+{
+
+}
+
+void Cat::Die()
+{
+
+}
 

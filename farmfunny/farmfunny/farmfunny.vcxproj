@@ -114,14 +114,21 @@
     <ClInclude Include="Cat.h" />
     <ClInclude Include="Chicken.h" />
     <ClInclude Include="Dog.h" />
+    <ClInclude Include="MacDonald.h" />
+    <ClInclude Include="Manager.h" />
     <ClInclude Include="Pig.h" />
+    <ClInclude Include="ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animal.cpp" />
     <ClCompile Include="Cat.cpp" />
     <ClCompile Include="Chicken.cpp" />
     <ClCompile Include="Dog.cpp" />
+    <ClCompile Include="MacDonald.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Pig.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

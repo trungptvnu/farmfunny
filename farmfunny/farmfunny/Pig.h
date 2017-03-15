@@ -13,6 +13,6 @@ protected:
 public:
 	Pig();
 	virtual ~Pig();
-	void Sound();
+	String Sound();
 };
 
