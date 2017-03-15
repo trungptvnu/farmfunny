@@ -20,6 +20,7 @@ int main()
 {
 	ResourceManager resourceManager;
 	Manager manager;
+	MacDonald macdonald;
 	int start;
 	cout << " Farm Funny  ^ - ^" << endl;
 	cout << " Press 0 to start ..." << endl;
@@ -28,35 +29,6 @@ int main()
 	while (true)
 	{
 		cout << "\t***Moi ban nhap thong mong muon:***" << endl;
-		int option = 0;
-		cin >> option;
-		switch (option)
-		{
-			case 1: 
-				cout << " Resource of Farm : " << endl;
-				// show food resource :
-				cout << " Food : " << resourceManager.getFood() << endl;
-				// show money resource
-				cout << " Money : " << resourceManager.getMoney() << endl;
-				// show animal of farm
-				cout << " Animal of farm : " << endl;
-				cout << " Animal : " << manager.showAllAnimal() << endl;
-				break;
-			case 2: 
-				// show food resource :
-				cout << " Resource of Farm : " << endl;
-				cout << " Food : " << resourceManager.getFood() << endl;
-				// show money resource
-				cout << " Money : " << resourceManager.getMoney() << endl;
-				break;
-			case 3:
-				//show all animal
-				cout << " All animal of Farm: " << endl;
-				cout << " animal : " << manager.showAllAnimal() << endl;
-				break;
-
-		}
-
 		cout << "1. Report resource and animals" << endl;
 		cout << "2. Report resource" << endl;
 		cout << "3. Report all animals" << endl;
@@ -75,9 +47,100 @@ int main()
 		// Sell animal 
 		cout << " 13. Sell < animal type > < animal name > " << endl; // sell an nimal 
 		cout << "14. Sell < animal type > " << endl; // sell an type of animal
-		// buy
+													 // buy
 		cout << " < animal type > < animal name > " << endl;
-		
+
+
+
+		int option = 0;
+		cin >> option;
+		switch (option)
+		{
+			case 1: 
+				cout << " Resource of Farm : " << endl;
+				// show food resource :
+				cout << " Food : " << resourceManager.getFood() << endl;
+				// show money resource
+				cout << " Money : " << resourceManager.getMoney() << endl;
+				// show animal of farm
+				cout << " Animal of farm : " << endl;
+				cout << " Animal : " << endl;
+				manager.showAllAnimal();
+				break;
+			case 2: 
+				// show food resource :
+				cout << " Resource of Farm : " << endl;
+				cout << " Food : " << resourceManager.getFood() << endl;
+				// show money resource
+				cout << " Money : " << resourceManager.getMoney() << endl;
+				break;
+			case 3:
+				//show all animal
+				cout << " All animal of Farm: " << endl;
+				cout << " List animal : " << endl;
+				manager.showAllAnimal();
+				break;
+			case 4:
+				 // feed  all animals 
+				cout << " Pls feed animal " << endl;
+				macdonald.feedAnimal();
+				break;
+			case 5:
+				// feed an animal type 
+				cout << " pls input tyep animal " << endl;
+				macdonald.feedAnimal();
+				break;
+			case 6:
+				// feed animal name
+				cout << " pls input name of animal" << endl;
+				macdonald.feedAnimal();
+				break;
+			case 7: 
+				// let all anmals out 
+				macdonald.letAnimalOut();
+				cout << " all Animals go out the Farm" << endl;
+				break;
+			case 8:
+				// let all animal back
+				macdonald.letAnimalBack();
+				cout << " all Animal come back the Farm" << endl;
+				break;
+			case 9: 
+				// let type animal out
+				cout << "pls input type of Animal" << endl;
+				macdonald.letAnimalOut();
+				break;
+			case 10: 
+				// let type anmal back
+				cout << " animal come back the farm" << endl;
+				macdonald.letAnimalBack();
+			case 11:
+				// let animal name out ;
+				cout << " pls input name of animal : " << endl;
+				macdonald.letAnimalOut();
+				break;
+			case 12:
+				// let animal name back ;
+				cout << " animal come back the farm : " << endl;
+				macdonald.letAnimalBack();
+				break;
+			case 13:
+				// Sell <animail type>  <animal name>
+				cout << " Input Animal type " << endl;
+				// Do something
+				cout << " Input Animal name " << endl;
+				macdonald.sell();
+				break;
+			case 14:
+				// Sell <animail type>  <animal name>
+				cout << " Input Animal type " << endl;
+				macdonald.sell();
+				break;
+
+
+
+		}
+
 	}
 	return 0;
 }

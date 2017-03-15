@@ -29,6 +29,7 @@ public:
 	virtual void getWeight() = 0;
 	virtual int getCountSound() = 0;
 	virtual void updateWeight();
+	virtual void setName();
 
 	Animal();
 	virtual ~Animal();
