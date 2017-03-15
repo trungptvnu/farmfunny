@@ -136,6 +136,15 @@ int main()
 				cout << " Input Animal type " << endl;
 				macdonald.sell();
 				break;
+			case 15: 
+				// buy
+				cout << " Input Animal type " << endl;
+				cout << " Input get name for new Animal " << endl;
+				macdonald.buyAnimal();
+			case 16:
+				// buy food
+				cout << " Buy food frome store" << endl;
+				macdonald.buyFood();
 
 
 
