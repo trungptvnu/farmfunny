@@ -10,6 +10,12 @@ using namespace std;
 Dog::Dog()
 {
 	m_maxweight = 7;
+	if (m_intelligentindex == 10) {
+		m_price = 10;
+	}
+	else {
+		m_price = 5;
+	}
 }
 
 
