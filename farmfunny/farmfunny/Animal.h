@@ -30,7 +30,7 @@ protected:
 public:
 	virtual string Sound() = 0;
 	virtual void setSoundbyNum(int) = 0;
-	virtual void Eat() = 0;
+	virtual int Eat() = 0;
 	virtual int Reproduce() = 0;
 	virtual void GoOut() = 0;
 	virtual void comeBack() = 0;

@@ -40,7 +40,7 @@ void Manager::notify(int _time)
 	{
 		switch ((*itemAnimal)->notify(_time))
 		{
-		case Config::NOTIFY_ANIMAL_SOUND:
+		case Config::NOTIFY_ANIMAL_SOUND:// co 1 con keu
 			updateHearByTypeAnimal((*itemAnimal)->getType(),1);
 			break;
 		case Config::NOTIFY_ANIMAL_DIE:
@@ -52,17 +52,88 @@ void Manager::notify(int _time)
 		}
 	}
 }
+void Manager::feedAllAnimal()
+{
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
+
+	{
+		(*itemAnimal)->Eat();
+	}
+}
+
+void Manager::feedAnimalByType(int _type)
+{
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
+
+	{
+		if((*itemAnimal)->getType()==_type)
+		(*itemAnimal)->Eat();
+	}
+}
+void Manager::feedAnimalByName(string _name)
+{
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
+
+	{
+		if ((*itemAnimal)->getName() == _name)
+			(*itemAnimal)->Eat();
+	}
+}
+void Manager::buyAnimalByType(int _type,string _name)
+{
+	int _price = m_animFactory->getPriceAnimalByType(_type);
+	if (ResourceManager::getMoney() >= _price)
+	{
+		Animal* anialmNew = m_animFactory->creatAnimal(_type);
+		anialmNew->setName(_name);
+		m_listAnimal.push_back(anialmNew);
+		ResourceManager::setMoney(ResourceManager::getMoney() - _price);
+		cout << "Animal buy success!" << endl;
+	}
+	else
+	{
+		cout << "Not enought money to buy this animal!" << endl;
+	}
+}
+void Manager::sellByName(int _type,string _name)
+{
+
+}
+void Manager::sellByType(int type)
+{
+}
+void Manager::buyFood()
+{
+}
+void Manager::letAllAnimalOut()
+{
+}
+void Manager::letAnimalOutByType(int type)
+{
+}
+void Manager::letAllAnimalOutByName(string name)
+{
+}
+void Manager::letAllAnimalBack()
+{
+}
+void Manager::letAnimalBackByType(int type)
+{
+}
+void Manager::letAnimalBackByName(string name)
+{
+}
 void Manager::reprodueByParent(Animal* _animParent)
 {
 	
 	int m_numChildren =_animParent->Reproduce();
-	AnimalFactory m_animFactory;
+	
 	for (int i = 0; i < m_numChildren; ++i)
 		{
-		Animal* anialmNew = m_animFactory.creatAnimal(_animParent->getType());
-			string nameAnimNew = m_animFactory.getNameByTypeAnimal(_animParent->getType())+to_string(m_listAnimal.size());
+		Animal* anialmNew = m_animFactory->creatAnimal(_animParent->getType());
+			string nameAnimNew = m_animFactory->getNameByTypeAnimal(_animParent->getType())+to_string(m_listAnimal.size());
 			anialmNew->setName(nameAnimNew);
-			updateHearByTypeAnimal(anialmNew->getType(), m_animFactory.getNumOfSoundByTypeAnimalReproduce(anialmNew->getType()));
+			updateHearByTypeAnimal(anialmNew->getType(), m_animFactory->getNumOfSoundByTypeAnimalReproduce(anialmNew->getType()));
 			m_listAnimal.push_back(anialmNew);
 			 
 		}
@@ -81,14 +152,18 @@ void Manager::updateHearByTypeAnimal(int _type,int _numOfSound)
 }
 void Manager::dieAnimal(Animal* _animal)
 {
-	AnimalFactory m_animFactory;
-	updateHearByTypeAnimal(_animal->getType(), m_animFactory.getNumOfSoundByTypeAnimalDie(_animal->getType()));
+	 
+	updateHearByTypeAnimal(_animal->getType(), m_animFactory->getNumOfSoundByTypeAnimalDie(_animal->getType()));
 	m_listAnimal.remove(_animal);
 }
 Manager::Manager()
 {
 }
+Manager::Manager(ResourceManager* _Resource)
+{
+	m_resourceManager = _Resource;
 
+}
 
 Manager::~Manager()
 {

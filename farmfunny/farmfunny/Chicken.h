@@ -17,8 +17,7 @@ public:
 	string Sound();
 	void setSoundbyNum(int Num);
 	void updateHearByTypeAnimal(int _type, int _numOfSound);
-	void updateHear(int);
-	void Eat();
+	int Eat();
 	int Reproduce();
 	void GoOut();
 	void updateHappyIndex();

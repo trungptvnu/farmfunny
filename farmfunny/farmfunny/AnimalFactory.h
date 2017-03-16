@@ -16,6 +16,7 @@ public:
 	string getNameByTypeAnimal(int _type);
 	int getNumOfSoundByTypeAnimalReproduce(int _type);
 	int getNumOfSoundByTypeAnimalDie(int _type);
+	int getPriceAnimalByType(int _type);
 
 
 	AnimalFactory();

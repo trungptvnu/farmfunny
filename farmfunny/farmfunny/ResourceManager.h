@@ -9,12 +9,16 @@ public:
 	{
 		return m_food;
 	}
-	static int setFood(int food ) {
+	static void setFood(int food ) {
 		m_food = food;
-		return m_food;
+		 
+	}
+	 static void setMoney(int money) {
+		m_money = money;
+		 
 	}
 
-	static int getMoney()
+	 static  int getMoney()
 	{ 
 		return m_money;
 	}

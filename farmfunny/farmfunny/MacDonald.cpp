@@ -13,7 +13,7 @@
 #include "Dog.h"
 #include "Cat.h"
 #include "Pig.h"
-
+#include "Config.h"
 #include "Manager.h"
 
 using namespace std;
@@ -30,15 +30,21 @@ void MacDonald :: Activities()
 {
 	string animalnametype;
 	string animalname;
-	string animaltypeout;
-	string animaltypeback;
+	int animaltypeout;
+	int animaltypeback;
 	string animalnameout;
 	string animalnameback;
-	string animaltypesell;
+	int animaltypesell;
 	string animatnamesell;
-	string buyanimaltype;
+	int buyanimaltype;
 	string buyanimalname;
-	int optionanimal;
+	string sellanimalname;
+	int buyanimaloption;
+	int selloptionanimal;
+	int optionanimal = 0;
+	string buyname;
+	string sellname;
+	
 	int option;
 	cin >> option;
 	switch (option)
@@ -46,13 +52,11 @@ void MacDonald :: Activities()
 	case 1:
 		cout << "Resource of Farm : " << endl;
 		// show food resource : 
-		 
 		cout << " Food : " << resourceManager->getFood()<< endl;
 		// show money resource
 		cout << " Money : " << resourceManager->getMoney() << endl;
 		// show animal of farm
 		cout << " Animal of farm : " << endl;
-		cout << " Animal : " << endl;
 		manager->showAllAnimal();
 		break;
 	case 2:
@@ -71,82 +75,199 @@ void MacDonald :: Activities()
 	case 4:
 		// feed  all animals 
 		cout << " Pls feed animal " << endl;
-		feedAllAnimal();
+		manager->feedAllAnimal();
 		break;
 	case 5:
 		// feed an animal type 
+		int type = 0;
 		cout << " pls input type animal " << endl;
-		cin >> animalnametype;
-		feedAnimalByType(animalnametype);
+		showOption();
+		cin >> buyanimaloption;
+		switch (buyanimaloption)
+		{
+		case 1:
+			// feed Chicken
+			type = Config::ANIMAL_CHICKEN;
+			break;
+		case 2:
+			// buy a Cat
+			type = Config::ANIMAL_CAT;
+
+			break;
+		case 3:
+			// buy a Dog
+			type = Config::ANIMAL_DOG;
+			break;
+		case 4:
+			// buy a
+			type = Config::ANIMAL_PIG;
+			break;
+		}
+		manager->feedAnimalByType(type);
 		break;
 	case 6:
 		// feed animal name
 		cout << " pls input name of animal" << endl;
 		cin >> animalname;
-		feedAnimalByName(animalname);
+		manager->feedAnimalByName(animalname);
 		break;
 	case 7:
 		// let all animals out 
-		letAllAnimalOut();
+		manager->letAllAnimalOut();
 		cout << " All animals go out the Farm" << endl;
 		break;
 	case 8:
 		// let all animal back
-		letAllAnimalBack();
+		manager->letAllAnimalBack();
 		cout << " All animal come back the Farm" << endl;
 		break;
 	case 9:
 		// let type animal out
-		cout << "pls input type of Animal" << endl;
+		type = 0;
+		cout << " Let type animal out" << endl;
+		showOption();
 		cin >> animaltypeout;
-		letAnimalOutByType(animaltypeout);
-		cout << "all" << " " << animaltypeout << " go out the farm" << endl;
+		switch (buyanimaloption)
+		{
+		case 1:
+			// buy a Chicken
+			type = Config::ANIMAL_CHICKEN;
+			break;
+		case 2:
+			// buy a Cat
+			type = Config::ANIMAL_CAT;
+
+			break;
+		case 3:
+			// buy a Dog
+			type = Config::ANIMAL_DOG;
+			break;
+		case 4:
+			// buy a
+			type = Config::ANIMAL_PIG;
+			break;
+
+		}
+		manager->letAnimalOutByType(type);
+		cout << "all" << " " << type << " go out the farm" << endl;
 		break;
 	case 10:
 		// let type animal back
-		cout << " pls input type of Animal" << endl;
+		type = 0;
+		cout << "Let type animal back" << endl;
+		showOption();
 		cin >> animaltypeback;
-		letAnimalBackByType(animaltypeback);
-		cout << "All" << " " << animaltypeback << " come back the farm " << endl;
-		break;
+		switch (animaltypeback)
+		{
+		case 1:
+			// Chicken
+			type = Config::ANIMAL_CHICKEN;
+			break;
+		case 2:
+			// Cat
+			type = Config::ANIMAL_CAT;
 
+			break;
+		case 3:
+			// Dog
+			type = Config::ANIMAL_DOG;
+			break;
+		case 4:
+			// PIG
+			type = Config::ANIMAL_PIG;
+			break;
+
+		}
+		manager->letAnimalBackByType(type);
+		cout << "all" << " " << type << " go out the farm" << endl;
+		break;
 	case 11:
 		// let animal name out ;
 		cout << " pls input name of animal : " << endl;
 		cin >> animalnameout;
-		letAllAnimalOutByName(animalnameout);
+		manager->letAllAnimalOutByName(animalnameout);
 		cout << animalnameout << " go out the farm " << endl;
 		break;
 	case 12:
 		// let animal name back ;
 		cout << " pls input name of animal " << endl;
 		cin >> animalnameback;
-		letAnimalBackByName(animalnameback);
+		manager->letAnimalBackByName(animalnameback);
 		cout << animalnameback << " come back the farm " << endl;
 		break;
 	case 13:
 		// Sell <animail type>  <animal name>
-		cout << " Input Animal type " << endl;
+		cout << " Sell Animal type " << endl;
 		showOption();
+		type = 0;
 		// show list Animal type 
-	//	sellByName();
-		break;
+		cin >> selloptionanimal;
+		switch (selloptionanimal)
+		{
+		case 1:
+			// Chicken
+			type = Config::ANIMAL_CHICKEN;
+			break;
+		case 2:
+			// Cat
+			type = Config::ANIMAL_CAT;
+
+			break;
+		case 3:
+			// Dog
+			type = Config::ANIMAL_DOG;
+			break;
+		case 4:
+			// Pig
+			type = Config::ANIMAL_PIG;
+			break;
+
+		}
+		cout << " input name of " << type << ;
+		cin >> sellname;
+		manager->sellByName(type, name);
 	case 14:
 		// Sell <animail type>
 		cout << " Input Animal type if you want to Sell  " << endl;
 		cin >> animaltypesell;
-		sellByType(animaltypesell);
+		manager->sellByType(animaltypesell);
 		break;
 	case 15:
 		// buy animal
+		
 		cout << " Input Animal type if you want to buy" << endl;
+		showOption();
+		cin >> buyanimaloption;
+		switch (buyanimaloption)
+		{
+		case 1:
+			// buy a Chicken
+			type = Config::ANIMAL_CHICKEN;
+			break;
+		case 2:
+			// buy a Cat
+			type = Config::ANIMAL_CAT;
+			 
+			break;
+		case 3:
+			// buy a Dog
+			type = Config::ANIMAL_DOG;
+			break;
+		case 4:
+			// buy a
+			type = Config::ANIMAL_PIG;
+			break;
+
+		}
+		
 		cout << " Input get name for new Animal " << endl;
-		buyAnimal();
+		cin >> buyname;
+		manager->buyAnimalByType(type, name);
 		break;
 	case 16:
 		// buy food
 		cout << " Buy food from store" << endl;
-		buyFood();
+		manager->buyFood();
 		cout << " " << endl;
 		break;
 
@@ -156,73 +277,13 @@ void MacDonald :: Activities()
 
 MacDonald::MacDonald()
 {
+
 }
 
 MacDonald::~MacDonald()
 {
 }
 
-// feed 
-void MacDonald::feedAllAnimal()
-{
 
-}
-
-void MacDonald::feedAnimalByType(string type)
-{
-}
-
-void MacDonald::feedAnimalByName(string name)
-{
-
-}
-// buy Animal
-
-void MacDonald::buyAnimal()
-{
-
-}
-
-// sell
-void MacDonald::sellByName(string name)
-{
-}
-
-void MacDonald::sellByType(string type)
-{
-}
-
-// Buy food
-
-void MacDonald::buyFood()
-{
-
-}
-
-// let Animal out
-void MacDonald::letAllAnimalOut()
-{
-}
-
-void MacDonald::letAnimalOutByType(string type)
-{
-}
-
-void MacDonald::letAllAnimalOutByName(string name)
-{
-}
-
-// let Animal back
-void MacDonald::letAllAnimalBack()
-{
-}
-
-void MacDonald::letAnimalBackByType(string type)
-{
-}
-
-void MacDonald::letAnimalBackByName(string name)
-{
-}
 
 

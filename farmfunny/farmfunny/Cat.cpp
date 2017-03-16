@@ -67,7 +67,7 @@ void Cat::Eat()
 {
 	if (m_age > 2&& m_happyindex>3 &&  isEat==false) {
 		if (ResourceManager::getFood() > 0) {
-			ResourceManager::setFood(ResourceManager::getFood() - 1);
+			ResourceManager::setFood(ResourceManager::getFood() - 2);
 			cout << "Cat eat" << endl;
 			Sound();
 			isEat = true;
@@ -95,9 +95,13 @@ int Cat::Reproduce()
 
 void Cat::GoOut()
 {
-	m_happyindex += 2;
-	m_status = false;
-	m_numNotGoOut--;
+	if (m_status==true)
+	{
+		m_happyindex += 2;
+		m_status = false;
+		m_numNotGoOut--;
+	}
+	
 }
 
 void Cat::updateHappyIndex()
@@ -124,11 +128,7 @@ void Cat::Die()
 }
 
 void Cat::showAttribute() {
-	cout << "Name:" << m_name << endl;
-	cout << "Age" << m_age << endl;
-	cout << "Weight" << m_weight << endl;
-	cout << "HappyIndex" << m_happyindex << endl;
-	cout << "Status" << m_status << endl;
+	cout << "Name: " << m_name << "Age:" << m_age << "HappyIndex: " << m_happyindex << "Status: " << m_status << endl;
 }
 
 void Cat::updateWeight()

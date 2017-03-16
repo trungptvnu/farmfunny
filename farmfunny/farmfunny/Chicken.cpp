@@ -59,24 +59,16 @@ void Chicken::updateHearByTypeAnimal(int _type, int _numOfSound)
 	}
 }
 
-void Chicken::Eat()
+int Chicken::Eat()
 {
 	if (m_happyindex > 3&& isEat== false)
 	{
-		if (ResourceManager::getFood() >0) {
-			ResourceManager::setFood(ResourceManager::getFood() - 1);
-			cout << " Chicken eat" << endl;
 			Sound();
 			isEat = true;
+			return Config::NOTIFY_EAT_CHICKEN;
 		}
-		else {
-			cout << " not enough food" << endl;
-		}
-
-	}
-	else {
-		cout << "Can not eat" << endl;
-	}
+	
+	return 0;
 	
 }
 
@@ -94,10 +86,14 @@ int Chicken::Reproduce()
 
 void Chicken::GoOut()
 {
+	if (m_status == true)
+	{
+		m_happyindex += 2;
+		m_status = false;
+		m_numNotGoOut--;
+	}
+	
 
-	m_happyindex += 2;
-	m_status = false;
-	m_numNotGoOut--;
 }
 
 void Chicken::updateHappyIndex()
@@ -127,11 +123,7 @@ void Chicken::Die()
 }
 
 void Chicken::showAttribute() {
-	cout << "Name:"<< m_name << endl;
-	cout << "Age: " << m_age << endl;
-	cout << "Weight: " << m_weight << endl;
-	cout << "HappyIndex: " << m_happyindex << endl;
-	cout << "Status: " << m_status << endl;
+	cout << "Name: " << m_name << "Age:" << m_age << "HappyIndex: " << m_happyindex << "Status: " << m_status << endl;
 }
 
 void Chicken::updateWeight()

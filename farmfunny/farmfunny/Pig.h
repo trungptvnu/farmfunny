@@ -20,7 +20,7 @@ public:
 	int Reproduce();
 	void GoOut();
 	void updateHappyIndex();
-	void updateHearByTypeAnimal() {};
+	void updateHearByTypeAnimal(int _type, int _numOfSound);
 	void comeBack();
 	void Die();
 	void showAttribute();
