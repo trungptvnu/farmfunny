@@ -47,8 +47,8 @@ int main()
 		// Sell animal 
 		cout << " 13. Sell < animal type > < animal name > " << endl; // sell an nimal 
 		cout << "14. Sell < animal type > " << endl; // sell an type of animal
-													 // buy
-		cout << " < animal type > < animal name > " << endl;
+		// buy
+		cout << " < 15. animal type > < animal name > " << endl;
 
 
 
@@ -96,7 +96,7 @@ int main()
 				macdonald.feedAnimal();
 				break;
 			case 7: 
-				// let all anmals out 
+				// let all animals out 
 				macdonald.letAnimalOut();
 				cout << " all Animals go out the Farm" << endl;
 				break;
@@ -111,7 +111,7 @@ int main()
 				macdonald.letAnimalOut();
 				break;
 			case 10: 
-				// let type anmal back
+				// let type animal back
 				cout << " animal come back the farm" << endl;
 				macdonald.letAnimalBack();
 			case 11:
@@ -143,9 +143,9 @@ int main()
 				macdonald.buyAnimal();
 			case 16:
 				// buy food
-				cout << " Buy food frome store" << endl;
+				cout << " Buy food from store" << endl;
 				macdonald.buyFood();
-
+				cout << " " << endl;
 
 
 		}
