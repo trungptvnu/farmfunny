@@ -12,12 +12,14 @@ protected:
 public:
 	Cat();
 	~Cat();
+	int getPriceBuy();
+	int getPriceSell();
 	int getType();
 	string Sound();
 	void updateHearByTypeAnimal(int _type, int _numOfSound);
 	void updateHear(int _num);
 	void setSoundbyNum(int Num);
-	void Eat();
+	int Eat();
 	int Reproduce();
 	void GoOut();
 	void updateHappyIndex();

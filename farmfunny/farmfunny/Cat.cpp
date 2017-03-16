@@ -26,6 +26,14 @@ Cat::~Cat()
 {
 }
 
+int Cat::getPriceBuy() {
+	return Config::PRICE_BUY_CAT;
+}
+ 
+int Cat::getPriceSell() {
+	return Config::PRICE_SELL_CAT;
+}
+
 int Cat::getType()
 {
 	return Config::ANIMAL_CAT;
@@ -38,7 +46,6 @@ int Cat::getCountSound()
 
 string Cat::Sound()
 {
-	
 	return "Meow!";
 }
 
@@ -56,6 +63,10 @@ void Cat::updateHearByTypeAnimal(int _type, int _numOfSound)
 	}
 }
 
+void Cat::updateHear(int _num)
+{
+}
+
 void Cat::setSoundbyNum(int Num)
 {
 	for (int i = 0; i< Num; i++) {
@@ -63,23 +74,27 @@ void Cat::setSoundbyNum(int Num)
 	}
 }
 
-void Cat::Eat()
+
+int Cat::Eat()
 {
-	if (m_age > 2&& m_happyindex>3 &&  isEat==false) {
-		if (ResourceManager::getFood() > 0) {
-			ResourceManager::setFood(ResourceManager::getFood() - 2);
-			cout << "Cat eat" << endl;
+	if (m_age > 2&& m_happyindex>3 &&  isEat==false) 
+		{
 			Sound();
 			isEat = true;
+			updateWeight();
+			m_countEat++;
+			return Config::NOTIFY_EAT_CHICKEN;
 		}
-		else {
-			cout << "Not enought food " << endl;
-		}
-		
-	}
-	else
-		cout << "Can not eat";
+		return 0;
+}
 
+void Cat::updateWeight()
+{
+	if (m_countEat == 2)
+	{
+		m_weight = m_weight + 1;
+		m_countEat = 0;
+	}
 }
 
 int Cat::Reproduce()
@@ -131,10 +146,7 @@ void Cat::showAttribute() {
 	cout << "Name: " << m_name << "Age:" << m_age << "HappyIndex: " << m_happyindex << "Status: " << m_status << endl;
 }
 
-void Cat::updateWeight()
-{
-	m_weight = m_weight + 1;
-}
+
 int Cat::notify(int _time)
 {
 	if (_time == Config::TIME_SOUND_CAT)

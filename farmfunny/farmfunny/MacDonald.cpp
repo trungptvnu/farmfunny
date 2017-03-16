@@ -9,10 +9,10 @@
 #include <list>
 
 #include "Animal.h"
-#include "Chicken.h"
-#include "Dog.h"
-#include "Cat.h"
-#include "Pig.h"
+//#include "Chicken.h"
+//#include "Dog.h"
+//#include "Cat.h"
+//#include "Pig.h"
 #include "Config.h"
 #include "Manager.h"
 
@@ -44,6 +44,7 @@ void MacDonald :: Activities()
 	int optionanimal = 0;
 	string buyname;
 	string sellname;
+	int type = 0;
 	
 	int option;
 	cin >> option;
@@ -79,12 +80,12 @@ void MacDonald :: Activities()
 		break;
 	case 5:
 		// feed an animal type 
-		int type = 0;
 		cout << " pls input type animal " << endl;
 		showOption();
 		cin >> buyanimaloption;
 		switch (buyanimaloption)
 		{
+
 		case 1:
 			// feed Chicken
 			type = Config::ANIMAL_CHICKEN;
@@ -102,8 +103,13 @@ void MacDonald :: Activities()
 			// buy a
 			type = Config::ANIMAL_PIG;
 			break;
+		default:
+			type = 0;
 		}
-		manager->feedAnimalByType(type);
+		if (type != 0)
+		{
+			manager->feedAnimalByType(type);
+		}
 		break;
 	case 6:
 		// feed animal name
@@ -123,7 +129,6 @@ void MacDonald :: Activities()
 		break;
 	case 9:
 		// let type animal out
-		type = 0;
 		cout << " Let type animal out" << endl;
 		showOption();
 		cin >> animaltypeout;
@@ -153,7 +158,6 @@ void MacDonald :: Activities()
 		break;
 	case 10:
 		// let type animal back
-		type = 0;
 		cout << "Let type animal back" << endl;
 		showOption();
 		cin >> animaltypeback;
@@ -199,7 +203,6 @@ void MacDonald :: Activities()
 		// Sell <animail type>  <animal name>
 		cout << " Sell Animal type " << endl;
 		showOption();
-		type = 0;
 		// show list Animal type 
 		cin >> selloptionanimal;
 		switch (selloptionanimal)
@@ -223,18 +226,40 @@ void MacDonald :: Activities()
 			break;
 
 		}
-		cout << " input name of " << type << ;
+		cout << " input name of " << type << endl;
 		cin >> sellname;
-		manager->sellByName(type, name);
+		manager->sellByName( sellname);
 	case 14:
 		// Sell <animail type>
 		cout << " Input Animal type if you want to Sell  " << endl;
-		cin >> animaltypesell;
-		manager->sellByType(animaltypesell);
+		showOption();
+		// show list Animal type 
+		cin >> selloptionanimal;
+		switch (selloptionanimal)
+		{
+		case 1:
+			// Chicken
+			type = Config::ANIMAL_CHICKEN;
+			break;
+		case 2:
+			// Cat
+			type = Config::ANIMAL_CAT;
+
+			break;
+		case 3:
+			// Dog
+			type = Config::ANIMAL_DOG;
+			break;
+		case 4:
+			// Pig
+			type = Config::ANIMAL_PIG;
+			break;
+
+		}
+		manager->sellByType(type);
 		break;
 	case 15:
 		// buy animal
-		
 		cout << " Input Animal type if you want to buy" << endl;
 		showOption();
 		cin >> buyanimaloption;
@@ -259,10 +284,9 @@ void MacDonald :: Activities()
 			break;
 
 		}
-		
 		cout << " Input get name for new Animal " << endl;
 		cin >> buyname;
-		manager->buyAnimalByType(type, name);
+		manager->buyAnimalByType(type, buyname);
 		break;
 	case 16:
 		// buy food

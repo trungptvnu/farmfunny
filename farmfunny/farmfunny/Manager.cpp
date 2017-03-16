@@ -1,22 +1,23 @@
-#include "Manager.h"
+
 #include <iostream>
 #include <string>
 #include <cmath>
 #include <algorithm>
 #include <vector>
 #include <list>
-
-#include "Animal.h"
-#include "Chicken.h"
-#include "Dog.h"
-#include "Cat.h"
-#include "Pig.h"
+#include "Manager.h"
+//#include "Animal.h"
+//#include "Chicken.h"
+//#include "Dog.h"
+//#include "Cat.h"
+//#include "Pig.h"
 #include "Config.h"
 #include "ResourceManager.h"
 #include "MacDonald.h"
 #include "AnimalFactory.h"
 
 using namespace std;
+
 void Manager::addAnimal(Animal* _animal)
 {
 	m_listAnimal.push_back(_animal);
@@ -30,7 +31,12 @@ void Manager::removeAnimal(Animal* _animal)
 
 void Manager::showAllAnimal()
 {
-	cout << " " << endl;
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
+
+	{
+		
+		(*itemAnimal)->showAttribute();
+	}
 }
 
 void Manager::notify(int _time)
@@ -55,9 +61,24 @@ void Manager::notify(int _time)
 void Manager::feedAllAnimal()
 {
 	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
-
 	{
-		(*itemAnimal)->Eat();
+		int _food = m_animFactory->getEatAnimalByType((*itemAnimal)->getType());
+		if (m_resourceManager->getFood() - _food >= 0)
+		{
+			_food = (*itemAnimal)->Eat();
+			if (_food > 0)
+			{
+				updateHearByTypeAnimal((*itemAnimal)->getType(), 1);
+				cout << (*itemAnimal)->getName() << " eat Success!" << endl;
+				m_resourceManager->setFood(m_resourceManager->getFood() - _food);
+			}
+
+		}
+		else 
+		{
+			cout << " Not enought Food!" << endl;
+			return;
+		}
 	}
 }
 
@@ -66,8 +87,27 @@ void Manager::feedAnimalByType(int _type)
 	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
 
 	{
-		if((*itemAnimal)->getType()==_type)
-		(*itemAnimal)->Eat();
+		if ((*itemAnimal)->getType() == _type)
+		{
+			int _food = m_animFactory->getEatAnimalByType((*itemAnimal)->getType());
+			if (m_resourceManager->getFood() - _food >= 0)
+			{
+				_food = (*itemAnimal)->Eat();
+				if (_food > 0)
+				{
+					updateHearByTypeAnimal((*itemAnimal)->getType(), 1);
+					cout << (*itemAnimal)->getName() << " eat Success!" << endl;
+					m_resourceManager->setFood(m_resourceManager->getFood() - _food);
+				}
+
+			}
+			else
+			{
+				cout << " Not enought Food!" << endl;
+				return;
+			}
+		}
+		
 	}
 }
 void Manager::feedAnimalByName(string _name)
@@ -76,18 +116,36 @@ void Manager::feedAnimalByName(string _name)
 
 	{
 		if ((*itemAnimal)->getName() == _name)
-			(*itemAnimal)->Eat();
+		{
+			int _food = m_animFactory->getEatAnimalByType((*itemAnimal)->getType());
+			if (m_resourceManager->getFood() - _food >= 0)
+			{
+				_food = (*itemAnimal)->Eat();
+				if (_food > 0)
+				{
+					updateHearByTypeAnimal((*itemAnimal)->getType(), 1);
+					cout << (*itemAnimal)->getName() << " eat Success!" << endl;
+					m_resourceManager->setFood(m_resourceManager->getFood() - _food);
+				}
+
+			}
+			else
+			{
+				cout << " Not enought Food!" << endl;
+				return;
+			}
+		}
 	}
 }
 void Manager::buyAnimalByType(int _type,string _name)
 {
-	int _price = m_animFactory->getPriceAnimalByType(_type);
-	if (ResourceManager::getMoney() >= _price)
+	int _price = m_animFactory->getPriceBuyAnimalByType(_type);
+	if (m_resourceManager->getMoney() >= _price)
 	{
 		Animal* anialmNew = m_animFactory->creatAnimal(_type);
 		anialmNew->setName(_name);
 		m_listAnimal.push_back(anialmNew);
-		ResourceManager::setMoney(ResourceManager::getMoney() - _price);
+		m_resourceManager->setMoney(m_resourceManager->getMoney() - _price);
 		cout << "Animal buy success!" << endl;
 	}
 	else
@@ -95,33 +153,100 @@ void Manager::buyAnimalByType(int _type,string _name)
 		cout << "Not enought money to buy this animal!" << endl;
 	}
 }
-void Manager::sellByName(int _type,string _name)
+void Manager::sellByName(string _name)
 {
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
 
+	{
+		if ((*itemAnimal)->getName() == _name)
+		{
+		//	int _price = m_animFactory->getPriceAnimalByType(_type);
+			m_listAnimal.remove(*itemAnimal);
+			cout << _name << " Sell Success!" << endl;
+		//	m_resourceManager->setMoney(m_resourceManager->getMoney() + _price);
+		}
+	}
 }
-void Manager::sellByType(int type)
+void Manager::sellByType(int _type)
 {
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
+
+	{
+		if ((*itemAnimal)->getType() == _type)
+		{
+			//m_listAnimal.remove(*itemAnimal);
+			//m_resourceManager->setMoney(m_resourceManager->getMoney() + _price);
+		}
+	}
 }
 void Manager::buyFood()
 {
+	if (m_resourceManager->buyFood())
+	{
+		cout << "Buy Food success!";
+	}
+	else
+	{
+		cout << "Not enought money to buy food";
+	}
 }
 void Manager::letAllAnimalOut()
 {
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
+
+	{
+		(*itemAnimal)->GoOut();
+	}
 }
-void Manager::letAnimalOutByType(int type)
+void Manager::letAnimalOutByType(int _type)
 {
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
+	{
+		if ((*itemAnimal)->getType() == _type)
+		{
+			(*itemAnimal)->GoOut();
+		}
+		
+	}
 }
-void Manager::letAllAnimalOutByName(string name)
+void Manager::letAllAnimalOutByName(string _name)
 {
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
+	{
+		if ((*itemAnimal)->getName() == _name)
+		{
+			(*itemAnimal)->GoOut();
+
+		}
+
+	}
 }
 void Manager::letAllAnimalBack()
 {
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
+	{
+			(*itemAnimal)->comeBack(); 
+	}
 }
-void Manager::letAnimalBackByType(int type)
+void Manager::letAnimalBackByType(int _type)
 {
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
+	{
+		if ((*itemAnimal)->getType() == _type)
+		{
+		(*itemAnimal)->comeBack();
+		}
+	}
 }
-void Manager::letAnimalBackByName(string name)
+void Manager::letAnimalBackByName(string _name)
 {
+	for (list < Animal*>::iterator itemAnimal = m_listAnimal.begin(); itemAnimal != m_listAnimal.end(); ++itemAnimal)
+	{
+		if ((*itemAnimal)->getName() == _name)
+		{
+			(*itemAnimal)->comeBack();
+		}
+	}
 }
 void Manager::reprodueByParent(Animal* _animParent)
 {
@@ -159,9 +284,9 @@ void Manager::dieAnimal(Animal* _animal)
 Manager::Manager()
 {
 }
-Manager::Manager(ResourceManager* _Resource)
+Manager::Manager(ResourceManager* _resource)
 {
-	m_resourceManager = _Resource;
+	m_resourceManager = _resource;
 
 }
 

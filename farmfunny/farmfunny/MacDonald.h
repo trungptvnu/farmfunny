@@ -8,7 +8,6 @@
 #include <list>
 
 #include "Animal.h"
-
 #include "ResourceManager.h"
 #include "Manager.h"
 

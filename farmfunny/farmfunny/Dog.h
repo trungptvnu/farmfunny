@@ -22,12 +22,14 @@ public:
 	void updateWeight();
 	Dog();
 	virtual ~Dog();
+	int getPriceBuy();
+	int getPriceSell();
 	int getType();
 	string Sound();
 	void updateHearByTypeAnimal(int, int);
-	void updateHear(int _num);
+	//void updateHear(int _num);
 	void setSoundbyNum(int Num);
-	void Eat();
+	int Eat();
 	int notify(int);
 };
 

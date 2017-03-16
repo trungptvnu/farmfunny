@@ -13,6 +13,9 @@ protected:
 public:
 	Chicken();
 	virtual ~Chicken();
+	int getPriceBuy();
+	int getPriceSell();
+	int getPrice();
 	int getType();
 	string Sound();
 	void setSoundbyNum(int Num);

@@ -16,7 +16,7 @@ protected:
 	int m_intelligentindex;
 	int m_maxweight;
 	bool isEat;
-	int countEat; 
+	int m_countEat; 
 	int m_countSound;
 	int m_countHear;
 	bool m_status;
@@ -28,6 +28,8 @@ protected:
 	int m_countNotHappy;
 
 public:
+	virtual int getPriceBuy() = 0; 
+	virtual int getPriceSell() = 0;
 	virtual string Sound() = 0;
 	virtual void setSoundbyNum(int) = 0;
 	virtual int Eat() = 0;

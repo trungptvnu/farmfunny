@@ -13,10 +13,12 @@ protected:
 public:
 	Pig();
 	virtual ~Pig();
+	int getPriceBuy();
+	int getPriceSell();
 	int getType();
 	string Sound();
 	void setSoundbyNum(int Num);
-	void Eat();
+	int Eat();
 	int Reproduce();
 	void GoOut();
 	void updateHappyIndex();

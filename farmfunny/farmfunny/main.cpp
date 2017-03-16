@@ -17,10 +17,6 @@
 #include "Manager.h"
 #include "TimeManager.h"
 
-void getinput()
-{
-	
-}
 void showMenu()
 {
 	

@@ -26,6 +26,17 @@ Pig::Pig()
 Pig::~Pig()
 {
 }
+
+int Pig::getPriceBuy()
+{
+	return Config::PRICE_BUY_PIG;
+}
+
+int Pig::getPriceSell()
+{
+	return Config::PRICE_SELL_PIG;
+}
+
 int Pig::getType()
 {
 	return Config::ANIMAL_PIG;
@@ -42,20 +53,26 @@ void Pig::setSoundbyNum(int Num)
 	}
 }
 
-void Pig::Eat()
+int Pig::Eat()
 {
-	if (m_age > 2 && m_happyindex >3 && isEat == false) {
-		if (ResourceManager::getFood() > 0) {
-			ResourceManager::setFood(ResourceManager::getFood() - 1);
-			cout << " Pig eat" << endl;
+	if (m_age > 2 && m_happyindex >3 && isEat == false) 
+		{
 			Sound();
 			isEat = true;
+			updateWeight();
+			m_countEat++;
+			return Config::NOTIFY_EAT_PIG;
 		}
+	return 0;
+}
 
+void Pig::updateWeight()
+{
+	if (m_countEat == 2)
+	{
+		m_weight = m_weight + 1;
+		m_countEat = 0;
 	}
-	else
-		cout << "Can not eat" << endl;
-
 }
 
 int Pig::Reproduce()
@@ -110,11 +127,7 @@ void Pig::Die()
 void Pig::showAttribute() {
 	cout << "Name: " << m_name << "Age:" << m_age << "HappyIndex: " << m_happyindex << "Status: " << m_status << endl;
 }
-void Pig::updateWeight()
-{
-	m_weight = m_weight + 1;
 
-}
 int Pig::notify(int _time)
 {
 	if (_time == Config::TIME_SOUND_PIG && isEat==false) {

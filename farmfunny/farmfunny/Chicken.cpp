@@ -14,8 +14,6 @@ Chicken::Chicken()
 	m_age = 0;
 	m_weight = 0;
 	m_maxweight = 2;
-	m_priceSell = 2;
-	m_priceBuy = 4;
 	m_status =true;
 	m_happyindex = 7;
 	m_countSound = 0;
@@ -27,6 +25,16 @@ Chicken::~Chicken()
 {
 }
 
+int Chicken::getPriceBuy() 
+{
+	return Config::PRICE_BUY_CHICKEN;
+}
+
+int Chicken::getPriceSell() 
+{
+	return Config::PRICE_SELL_CHICKEN;
+}
+
 int Chicken::getType() {
 	return Config::ANIMAL_CHICKEN;
 }
@@ -35,6 +43,7 @@ string Chicken::Sound()
 {
 	if (m_status = true) {
 		m_countSound++;
+		 
 	}
 	return "Bawk!";
 }
@@ -55,7 +64,6 @@ void Chicken::updateHearByTypeAnimal(int _type, int _numOfSound)
 			m_happyindex--;
 			m_countHear -= Config::MAX_HEAR_CHICKEN;
 		}
-
 	}
 }
 
@@ -65,11 +73,20 @@ int Chicken::Eat()
 	{
 			Sound();
 			isEat = true;
+			updateWeight();
+			m_countEat++;
 			return Config::NOTIFY_EAT_CHICKEN;
 		}
-	
 	return 0;
-	
+}
+
+void Chicken::updateWeight()
+{
+	if (m_countEat == 2)
+	{
+		m_weight = m_weight + 0.2;
+		m_countEat = 0;
+	}
 }
 
 int Chicken::Reproduce()
@@ -126,11 +143,7 @@ void Chicken::showAttribute() {
 	cout << "Name: " << m_name << "Age:" << m_age << "HappyIndex: " << m_happyindex << "Status: " << m_status << endl;
 }
 
-void Chicken::updateWeight()
-{
-	m_weight = m_weight + 0.2;
 
-}
 int Chicken::notify(int _time)
 {
 	if (_time > 4 && _time < 24)

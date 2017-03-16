@@ -75,8 +75,12 @@ int AnimalFactory::getNumOfSoundByTypeAnimalDie(int _type)
 	default:
 		return 0;
 	}
-} 
-int AnimalFactory::getPriceAnimalByType(int _type)
+}
+int AnimalFactory::getPriceSellAnimalByType(int _type)
+{
+	return 0;
+}
+int AnimalFactory::getPriceBuyAnimalByType(int _type)
 {
 	switch (_type)
 	{
@@ -92,7 +96,22 @@ int AnimalFactory::getPriceAnimalByType(int _type)
 		return 0;
 	}
 }
-
+int AnimalFactory::getEatAnimalByType(int _type)
+{
+	switch (_type)
+	{
+	case Config::ANIMAL_CAT:
+		return Config::NOTIFY_EAT_CAT;
+	case Config::ANIMAL_CHICKEN:
+		return Config::NOTIFY_EAT_CHICKEN;
+	case Config::ANIMAL_DOG:
+		return Config::NOTIFY_EAT_DOG;
+	case Config::ANIMAL_PIG:
+		return Config::NOTIFY_EAT_PIG;
+	default:
+		return 0;
+	}
+}
 AnimalFactory::AnimalFactory()
 {
 }

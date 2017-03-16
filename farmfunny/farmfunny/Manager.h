@@ -7,18 +7,19 @@
 #include <list>
 
 #include "Animal.h"
-#include "Chicken.h"
-#include "Dog.h"
-#include "Cat.h"
-#include "Pig.h"
+//#include "Chicken.h"
+//#include "Dog.h"
+//#include "Cat.h"
+//#include "Pig.h"
 #include "ResourceManager.h"
+#include "AnimalFactory.h"
 
 
 class Manager
 {
 public:
 	list<Animal*> m_listAnimal;
-	 
+	ResourceManager* m_resourceManager;
 	AnimalFactory* m_animFactory;
 	void addAnimal(Animal* _animal);
 	void removeAnimal(Animal* _animal);
@@ -33,7 +34,7 @@ public:
 	void feedAnimalByName(string name);
 
 	void buyAnimalByType(int _type,string _name);
-	void sellByName(int _type, string _name);
+	void sellByName(string name);
 	void sellByType(int type);
 	void buyFood();
 

@@ -15,7 +15,6 @@ Dog::Dog()
 	m_age = 0;
 	m_weight = 0;
 	m_maxweight = 7;
-	m_priceBuy = 8;
 	m_status = true;
 	m_intelligentindex = 0;
 	if (m_intelligentindex == 10) {
@@ -33,6 +32,16 @@ Dog::Dog()
 
 Dog::~Dog()
 {
+}
+
+int Dog::getPriceBuy() 
+{
+	return Config::PRICE_BUY_DOG;
+}
+
+int Dog::getPriceSell()
+{
+	return Config::PRICE_SELL_DOG;
 }
 
 int Dog::getType()
@@ -65,22 +74,28 @@ void Dog::setSoundbyNum(int Num)
 	}
 }
 
-void Dog::Eat()
+int Dog::Eat()
 {
-	if (m_age > 3 && m_happyindex >=3&& isEat==false ) {
-		if (ResourceManager::getFood() > 0) {
-			ResourceManager::setFood(ResourceManager::getFood() - 1);
-			cout << "Dog eat " << endl;
-			Sound();
-			isEat = true;
-		}
-		else {
-			cout << " Not enought food" << endl;
-		}
-		
+	if (m_age > 3 && m_happyindex >=3&& isEat==false )
+	{
+		Sound();
+		isEat = true;
+		updateWeight();
+		m_countEat++;
+		return Config::NOTIFY_EAT_DOG;
 	}
-	else
-		cout << "Can not eat" << endl;
+
+	return 0;
+}
+
+void Dog::updateWeight()
+{
+	if (m_countEat == 2)
+	{
+		m_weight = m_weight + 1;
+		m_countEat = 0;
+	}
+	
 }
 
 int Dog::Reproduce()
@@ -135,10 +150,7 @@ void Dog::train()
 	m_intelligentindex = m_intelligentindex + 2;
 }
 
-void Dog::updateWeight()
-{
-	m_weight = m_weight + 1;
-}
+
 int Dog::notify(int _time) {
 	if (_time >4 && _time < 24) {
 		GoOut();

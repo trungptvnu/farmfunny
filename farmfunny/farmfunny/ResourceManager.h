@@ -2,26 +2,36 @@
 class ResourceManager
 {	
 public:
-	static int m_food;
-	static int m_money;
+	  int m_food;
+	  int m_money;
 	ResourceManager();
-	static int getFood()
+	  int getFood()
 	{
 		return m_food;
 	}
-	static void setFood(int food ) {
+	  void setFood(int food ) {
 		m_food = food;
 		 
 	}
-	 static void setMoney(int money) {
+	   void setMoney(int money) {
 		m_money = money;
 		 
 	}
 
-	 static  int getMoney()
+	    int getMoney()
 	{ 
 		return m_money;
 	}
+		int buyFood()
+		{
+			if (m_money > 1)
+			{
+				m_money--;
+				m_food += 10;
+				return 1;
+			}
+			return 0;
+		}
 	virtual ~ResourceManager();
 };
 
