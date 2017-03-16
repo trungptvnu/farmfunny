@@ -114,6 +114,7 @@
     <ClInclude Include="Animal.h" />
     <ClInclude Include="Cat.h" />
     <ClInclude Include="Chicken.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="Dog.h" />
     <ClInclude Include="MacDonald.h" />
     <ClInclude Include="Manager.h" />

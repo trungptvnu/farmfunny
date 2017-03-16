@@ -1,5 +1,6 @@
 #pragma once
 #include "Animal.h"
+#include "TimeManager.h"
 #include<iostream>
 #include <string>
 #include<list>
@@ -12,12 +13,19 @@ protected:
 public:
 	Chicken();
 	virtual ~Chicken();
-	string sound();
+	int getType();
 	string Sound();
+	void setSoundbyNum(int Num);
+	void updateHearByTypeAnimal(int _type, int _numOfSound);
+	void updateHear(int);
 	void Eat();
-	void Reproduce();
+	int Reproduce();
 	void GoOut();
+	void updateHappyIndex();
+	void comeBack();
 	void Die();
+	void showAttribute();
 	void updateWeight();
+	int notify(int);
 };
 

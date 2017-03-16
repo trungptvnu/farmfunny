@@ -15,8 +15,28 @@ int Animal::getCountSound()
 	return 0;
 }
 
+void Animal::updateWeight()
+{
+}
+
+void Animal::showAttribute()
+{
+}
+void Animal::setName(string s)
+{
+	m_name = s;
+}
+string Animal::getName()
+{
+	return m_name;
+}
+int Animal::getType()
+{
+	return 0;
+}
 Animal::Animal()
 {
+
 }
 
 

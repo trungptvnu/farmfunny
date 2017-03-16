@@ -12,7 +12,12 @@ using namespace std;
 class AnimalFactory
 {
 public:
-	Animal* creatAnimal(int type);
+	Animal* creatAnimal(int _type);
+	string getNameByTypeAnimal(int _type);
+	int getNumOfSoundByTypeAnimalReproduce(int _type);
+	int getNumOfSoundByTypeAnimalDie(int _type);
+
+
 	AnimalFactory();
 	virtual ~AnimalFactory();
 };

@@ -1,50 +1,175 @@
 #include "Chicken.h"
+#include"Cat.h"
+#include "Config.h"
 #include<iostream>
 #include <string>
 #include<list>
+#include<time.h>
 #include<cmath>
-#include"Cat.h"
+#include<stdlib.h>
 
 
 Chicken::Chicken()
 {
+	m_age = 0;
+	m_weight = 0;
+	m_maxweight = 2;
+	m_priceSell = 2;
+	m_priceBuy = 4;
+	m_status =true;
+	m_happyindex = 7;
+	m_countSound = 0;
+	isEat = false;
+	m_numNotGoOut = 1;
 }
-
 
 Chicken::~Chicken()
 {
 }
 
+int Chicken::getType() {
+	return Config::ANIMAL_CHICKEN;
+}
 
 string Chicken::Sound()
 {
-	return "Bawk";
+	if (m_status = true) {
+		m_countSound++;
+	}
+	return "Bawk!";
+}
+void Chicken::setSoundbyNum(int _num)
+{
+	for (int i = 0; i < _num; i++) {
+		Sound();
+	}
+}
+
+void Chicken::updateHearByTypeAnimal(int _type, int _numOfSound)
+{
+	if (_type == Config::ANIMAL_CAT || _type==Config::ANIMAL_DOG || _type== Config::ANIMAL_PIG)
+	{
+		m_countHear += _numOfSound;
+		if (m_countHear >= Config::MAX_HEAR_CHICKEN)
+		{
+			m_happyindex--;
+			m_countHear -= Config::MAX_HEAR_CHICKEN;
+		}
+
+	}
 }
 
 void Chicken::Eat()
 {
-	
+	if (m_happyindex > 3&& isEat== false)
+	{
+		if (ResourceManager::getFood() >0) {
+			ResourceManager::setFood(ResourceManager::getFood() - 1);
+			cout << " Chicken eat" << endl;
+			Sound();
+			isEat = true;
+		}
+		else {
+			cout << " not enough food" << endl;
+		}
 
+	}
+	else {
+		cout << "Can not eat" << endl;
+	}
+	
 }
 
-void Chicken::Reproduce()
+int Chicken::Reproduce()
 {
-
+	if ( m_weight==(double)m_maxweight && m_happyindex==10) 
+	{
+		cout << "Chicken Reproduce" << endl;
+		srand(time(NULL));
+		return (rand() % 3)+1;
+	}
+	return 0;
+	
 }
 
 void Chicken::GoOut()
 {
 
+	m_happyindex += 2;
+	m_status = false;
+	m_numNotGoOut--;
+}
+
+void Chicken::updateHappyIndex()
+{
+	if (m_numNotGoOut == 2) {
+		m_happyindex--;
+		m_numNotGoOut = 0;
+	}
+	
+
+}
+
+void Chicken::comeBack()
+{
+	if (m_status == false) {
+		m_status = true;
+		cout << m_name << " come back" << endl;
+	}
 }
 
 void Chicken::Die()
 {
+	if (m_age == m_lifeTime|| m_countNotHappy==3) {
+		setSoundbyNum(4);
+		m_countNotHappy = 0;
+	}
+}
 
+void Chicken::showAttribute() {
+	cout << "Name:"<< m_name << endl;
+	cout << "Age: " << m_age << endl;
+	cout << "Weight: " << m_weight << endl;
+	cout << "HappyIndex: " << m_happyindex << endl;
+	cout << "Status: " << m_status << endl;
 }
 
 void Chicken::updateWeight()
 {
 	m_weight = m_weight + 0.2;
 
+}
+int Chicken::notify(int _time)
+{
+	if (_time > 4 && _time < 24)
+	{
+		GoOut();
+	}
+	else {
+		cout << "Can not go out" << endl;
+	}
+	if (_time == Config::TIME_SOUND_CHICKEN)
+	{
+		Sound();
+		return Config::NOTIFY_ANIMAL_SOUND;// thong bao co 1 con vua keu
+	}
+	else if (_time == 24) {
+		if (m_happyindex == 0) {
+			m_countNotHappy++;
+		}
+		else {
+			m_countNotHappy = 0;
+		}
+		comeBack();
+		isEat = false;
+		m_countHear = 0;
+		m_age++;
+		if (m_age == Config::TIME_REPRODUCE_CHICKEN) {
+			Reproduce();
+
+		}
+		m_numNotGoOut++;
+	}
+	return 0;
 }
 

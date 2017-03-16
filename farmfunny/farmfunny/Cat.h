@@ -12,13 +12,20 @@ protected:
 public:
 	Cat();
 	~Cat();
+	int getType();
 	string Sound();
+	void updateHearByTypeAnimal(int _type, int _numOfSound);
+	void updateHear(int _num);
+	void setSoundbyNum(int Num);
 	void Eat();
-	void Reproduce();
+	int Reproduce();
 	void GoOut();
+	void updateHappyIndex();
+	void comeBack();
 	void Die();
+	void showAttribute();
 	void updateWeight();
 	int getCountSound();
-
+	int notify(int);
 };
 

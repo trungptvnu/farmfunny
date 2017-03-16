@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -7,26 +8,43 @@
 #include <list>
 
 #include "Animal.h"
-#include "Chicken.h"
-#include "Dog.h"
-#include "Cat.h"
-#include "Pig.h"
+
 #include "ResourceManager.h"
-#include "MacDonald.h"
 #include "Manager.h"
 
 using namespace std;
 
+
 class MacDonald
 {
+protected:
+	Animal* animal;
+	ResourceManager* resourceManager;
+ 	Manager* manager;
+
 public:
+	//constructor
 	MacDonald();
 	virtual ~MacDonald();
-	void feedAnimal();
+
+	void feedAllAnimal();
+	void feedAnimalByType(string type);
+	void feedAnimalByName(string name);
+
 	void buyAnimal();
-	void sell();
+	void sellByName(string name);
+	void sellByType(string type);
 	void buyFood();
-	void letAnimalOut();
-	void letAnimalBack();
+
+	void letAllAnimalOut();
+	void letAnimalOutByType(string type);
+	void letAllAnimalOutByName(string name);
+
+	void letAllAnimalBack();
+	void letAnimalBackByType(string type);
+	void letAnimalBackByName(string name);
+
+	void showOption();
+	void Activities();
 };
 

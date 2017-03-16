@@ -9,7 +9,7 @@ int TimeManager::getHour()
 	if (m_hour<24)
 	{
 
-		m_hour = (time(0) - m_startTime) / 2.5;
+		m_hour = (int)((time(0) - m_startTime) / 2.5);
 	}
 	else
 	{

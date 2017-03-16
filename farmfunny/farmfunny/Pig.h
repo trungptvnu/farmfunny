@@ -13,11 +13,18 @@ protected:
 public:
 	Pig();
 	virtual ~Pig();
+	int getType();
 	string Sound();
+	void setSoundbyNum(int Num);
 	void Eat();
-	void Reproduce();
+	int Reproduce();
 	void GoOut();
+	void updateHappyIndex();
+	void updateHearByTypeAnimal() {};
+	void comeBack();
 	void Die();
+	void showAttribute();
 	void updateWeight();
+	int notify(int);
 };
 

@@ -12,15 +12,22 @@ protected:
 	const int maxweight = 7;
 public:
 	string sound();
-	void Reproduce();
+	int Reproduce();
 	void GoOut();
+	void updateHappyIndex();
+	void comeBack();
 	void Die();
+	void showAttribute();
 	void train();
 	void updateWeight();
 	Dog();
-
 	virtual ~Dog();
+	int getType();
 	string Sound();
+	void updateHearByTypeAnimal(int, int);
+	void updateHear(int _num);
+	void setSoundbyNum(int Num);
 	void Eat();
+	int notify(int);
 };
 
