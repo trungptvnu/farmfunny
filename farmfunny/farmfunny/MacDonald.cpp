@@ -15,7 +15,7 @@
 //#include "Pig.h"
 #include "Config.h"
 #include "Manager.h"
-
+#include "TimeManager.h"
 using namespace std;
 
 void MacDonald :: showOption()
@@ -26,64 +26,37 @@ void MacDonald :: showOption()
 	cout << "4. Pig " << endl;
 
 }
-void MacDonald :: Activities()
+void MacDonald :: Activities(int _time)
 {
-	string animalnametype;
-	string animalname;
-	int animaltypeout;
-	int animaltypeback;
-	string animalnameout;
-	string animalnameback;
-	int animaltypesell;
-	string animatnamesell;
-	int buyanimaltype;
-	string buyanimalname;
-	string sellanimalname;
-	int buyanimaloption;
-	int selloptionanimal;
-	int optionanimal = 0;
-	string buyname;
-	string sellname;
 	int type = 0;
-	
 	int option;
 	cin >> option;
 	switch (option)
 	{
 	case 1:
-		cout << "Resource of Farm : " << endl;
-		// show food resource : 
-		cout << " Food : " << resourceManager->getFood()<< endl;
-		// show money resource
-		cout << " Money : " << resourceManager->getMoney() << endl;
-		// show animal of farm
-		cout << " Animal of farm : " << endl;
-		manager->showAllAnimal();
+		
+		m_manager->showAllAnimal();
+		m_manager->showResource();
 		break;
 	case 2:
 		// show food resource :
-		cout << " Resource of Farm : " << endl;
-		cout << " Food : " << resourceManager->getFood() << endl;
-		// show money resource
-		cout << " Money : " << resourceManager->getMoney() << endl;
+		m_manager->showResource();
 		break;
 	case 3:
 		//show all animal
-		cout << " All animal of Farm: " << endl;
-		cout << " List animal : " << endl;
-		manager->showAllAnimal();
+		m_manager->showAllAnimal();
 		break;
 	case 4:
 		// feed  all animals 
-		cout << " Pls feed animal " << endl;
-		manager->feedAllAnimal();
+		 
+		m_manager->feedAllAnimal();
 		break;
 	case 5:
 		// feed an animal type 
-		cout << " pls input type animal " << endl;
+		cout << " please input type animal " << endl;
 		showOption();
-		cin >> buyanimaloption;
-		switch (buyanimaloption)
+		cin >> animalnametype;
+		switch (animalnametype)
 		{
 
 		case 1:
@@ -108,23 +81,23 @@ void MacDonald :: Activities()
 		}
 		if (type != 0)
 		{
-			manager->feedAnimalByType(type);
+			m_manager->feedAnimalByType(type);
 		}
 		break;
 	case 6:
 		// feed animal name
 		cout << " pls input name of animal" << endl;
 		cin >> animalname;
-		manager->feedAnimalByName(animalname);
+		m_manager->feedAnimalByName(animalname);
 		break;
 	case 7:
 		// let all animals out 
-		manager->letAllAnimalOut();
+		m_manager->letAllAnimalOut(_time);
 		cout << " All animals go out the Farm" << endl;
 		break;
 	case 8:
 		// let all animal back
-		manager->letAllAnimalBack();
+		m_manager->letAllAnimalBack();
 		cout << " All animal come back the Farm" << endl;
 		break;
 	case 9:
@@ -132,7 +105,7 @@ void MacDonald :: Activities()
 		cout << " Let type animal out" << endl;
 		showOption();
 		cin >> animaltypeout;
-		switch (buyanimaloption)
+		switch (animaltypeout)
 		{
 		case 1:
 			// buy a Chicken
@@ -151,10 +124,15 @@ void MacDonald :: Activities()
 			// buy a
 			type = Config::ANIMAL_PIG;
 			break;
+		default:
+			type = 0;
 
 		}
-		manager->letAnimalOutByType(type);
-		cout << "all" << " " << type << " go out the farm" << endl;
+		if (type != 0)
+		{
+			m_manager->letAnimalOutByType(type,_time);
+		}
+		 
 		break;
 	case 10:
 		// let type animal back
@@ -180,24 +158,27 @@ void MacDonald :: Activities()
 			// PIG
 			type = Config::ANIMAL_PIG;
 			break;
+		default:
+			type = 0;
 
 		}
-		manager->letAnimalBackByType(type);
-		cout << "all" << " " << type << " go out the farm" << endl;
+		if (type != 0)
+		{
+			m_manager->letAnimalBackByType(type);
+		}
+		
 		break;
 	case 11:
 		// let animal name out ;
 		cout << " pls input name of animal : " << endl;
 		cin >> animalnameout;
-		manager->letAllAnimalOutByName(animalnameout);
-		cout << animalnameout << " go out the farm " << endl;
+		m_manager->letAllAnimalOutByName(animalnameout,_time);
 		break;
 	case 12:
 		// let animal name back ;
 		cout << " pls input name of animal " << endl;
 		cin >> animalnameback;
-		manager->letAnimalBackByName(animalnameback);
-		cout << animalnameback << " come back the farm " << endl;
+		m_manager->letAnimalBackByName(animalnameback);
 		break;
 	case 13:
 		// Sell <animail type>  <animal name>
@@ -224,11 +205,18 @@ void MacDonald :: Activities()
 			// Pig
 			type = Config::ANIMAL_PIG;
 			break;
+		default:
+			type = 0;
 
 		}
-		cout << " input name of " << type << endl;
-		cin >> sellname;
-		manager->sellByName( sellname);
+		if ( type != 0)
+		{
+			cout << " input name of " << type << endl;
+			cin >> sellname;
+			m_manager->sellByName(sellname);
+		}
+		break;
+		
 	case 14:
 		// Sell <animail type>
 		cout << " Input Animal type if you want to Sell  " << endl;
@@ -254,9 +242,14 @@ void MacDonald :: Activities()
 			// Pig
 			type = Config::ANIMAL_PIG;
 			break;
+		default:
+			break;
 
 		}
-		manager->sellByType(type);
+		if (type != 0)
+		{
+			m_manager->sellByType(type);
+		}
 		break;
 	case 15:
 		// buy animal
@@ -282,30 +275,78 @@ void MacDonald :: Activities()
 			// buy a
 			type = Config::ANIMAL_PIG;
 			break;
-
+		default:
+			type = 0;
+			break;
 		}
-		cout << " Input get name for new Animal " << endl;
-		cin >> buyname;
-		manager->buyAnimalByType(type, buyname);
+		if (type != 0)
+		{
+			cout << " Input get name for new Animal " << endl;
+			cin >> buyname;
+			m_manager->buyAnimalByType(type, buyname);
+		
+		}
 		break;
 	case 16:
 		// buy food
 		cout << " Buy food from store" << endl;
-		manager->buyFood();
+		m_manager->buyFood();
 		cout << " " << endl;
 		break;
-
+	case 17:
+		timeManager->seekDay();
+		break;
+	case 18:
+		showMenu();
+		break;
+	default:
+		
+		break;
+	
 	}
 
 }
 
-MacDonald::MacDonald()
+MacDonald::MacDonald(Manager* manager,TimeManager* time)
+{
+	m_manager = manager;
+	timeManager = time;
+}
+void MacDonald::showMenu()
 {
 
+	cout << "\t*** Menu ***" << endl;
+	cout << "1.  Report all" << endl;
+	cout << "2.  Report resource" << endl;
+	cout << "3.  Report all animals" << endl;
+	// Feed
+	cout << "4.  Feed animals " << endl; // give food to all animals in MacDonald's farm
+	cout << "5.  Feed animals type " << endl; // give food to an animal type
+	cout << "6.  Feed <Animal name> " << endl; // give food to an animal follow --> name 
+											   // Let animal out/back
+	cout << "7.  Let all animals out " << endl; // let all animals out;
+	cout << "8.  Let all animals back " << endl; // let all animals back;
+												 // them switch case de lua chon con vat 
+	cout << "9.  Let chickens(/cats/dogs/pigs) out " << endl; // Let an animal type out
+	cout << "10. Let chickens(/cats/dogs/pigs) back " << endl; // Let an animal type back.
+	cout << "11. Let <animal name > out " << endl; // Let animal name out 
+	cout << "12. Let <animal name > back " << endl; // Let animal back 
+													// Sell animal 
+	cout << "13. Sell < animal type > < animal name > " << endl; // sell an nimal 
+	cout << "14. Sell < animal type > " << endl; // sell an type of animal
+												 // buy
+	cout << "15. Buy<animal type><animal name>" << endl;
+	cout << "16. Buy food" << endl;
+	cout << "17. Move to the next day " << endl;
+	cout << "18. Show menu " << endl;
 }
+ 
+
+
 
 MacDonald::~MacDonald()
 {
+	 
 }
 
 

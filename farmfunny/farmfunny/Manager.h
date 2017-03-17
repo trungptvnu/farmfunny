@@ -7,10 +7,7 @@
 #include <list>
 
 #include "Animal.h"
-//#include "Chicken.h"
-//#include "Dog.h"
-//#include "Cat.h"
-//#include "Pig.h"
+
 #include "ResourceManager.h"
 #include "AnimalFactory.h"
 
@@ -18,29 +15,30 @@
 class Manager
 {
 public:
-	list<Animal*> m_listAnimal;
-	ResourceManager* m_resourceManager;
-	AnimalFactory* m_animFactory;
+	list<Animal*> m_listAnimal ;
+	 
+	ResourceManager m_resourceManager;
+	AnimalFactory m_animFactory  ;
 	void addAnimal(Animal* _animal);
 	void removeAnimal(Animal* _animal);
 	// show tat ca thuoc tinh cua animal ra, return listAnimal
-	void showAllAnimal();
+	
 	void updateHearByTypeAnimal(int _type,int _numOfSound);
+	void reproduceByParent(Animal * _animParent);
 	void dieAnimal(Animal * _animal);
-	void reprodueByParent(Animal*);
 	virtual void notify(int);
 	void feedAllAnimal();
 	void feedAnimalByType(int type);
 	void feedAnimalByName(string name);
-
 	void buyAnimalByType(int _type,string _name);
 	void sellByName(string name);
 	void sellByType(int type);
 	void buyFood();
-
-	void letAllAnimalOut();
-	void letAnimalOutByType(int type);
-	void letAllAnimalOutByName(string name);
+	void showAllAnimal();
+	void showResource();
+	void letAllAnimalOut(int);
+	void letAnimalOutByType(int type,int);
+	void letAllAnimalOutByName(string name,int);
 
 	void letAllAnimalBack();
 	void letAnimalBackByType(int type);
@@ -48,7 +46,7 @@ public:
 
 
 	Manager();
-	Manager(ResourceManager*);
+ 
 	virtual ~Manager();
 };
 

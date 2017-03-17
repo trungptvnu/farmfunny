@@ -2,6 +2,9 @@
 class Config
 {
 public:
+	static const int NUM_OF_DAY_NOT_GO_OUT = 2;
+	static const int MAX_HAPPY_INDEX = 10;
+
 	static const int TIME_LEFT_CHICKEN = 15;
 	static const int TIME_LEFT_CAT = 20;
 	static const int TIME_LEFT_DOG = 25;
@@ -69,6 +72,8 @@ public:
 	static const int TIME_REPRODUCE_CAT= 18;
 	static const int TIME_REPRODUCE_DOG= 22;	
 	static const int TIME_REPRODUCE_PIG = 20;
-	 
+
+	static const int TIME_REPRODUCE_ANIMAL = 69;
+
 	//static const int NOTIFY_
 };

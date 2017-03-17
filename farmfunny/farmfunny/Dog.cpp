@@ -6,6 +6,7 @@
 #include<list>
 #include<cmath>
 #include<stdlib.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -17,16 +18,12 @@ Dog::Dog()
 	m_maxweight = 7;
 	m_status = true;
 	m_intelligentindex = 0;
-	if (m_intelligentindex == 10) {
-		m_priceSell = 10;
-	}
-	else {
-		m_priceSell = 5;
-	}
+	
 	m_happyindex = 7;
 	isEat = false;
-	m_numNotGoOut = 1;
+	m_numNotGoOut = 0;
 	m_countNotHappy = 0;
+	m_countEat = 0;
 }
 
 
@@ -41,7 +38,19 @@ int Dog::getPriceBuy()
 
 int Dog::getPriceSell()
 {
+	if (m_intelligentindex == 10) {
+		return Config::PRICE_SELL_MAX_DOG;
+	}
 	return Config::PRICE_SELL_DOG;
+}
+
+int Dog::checkSell()
+{
+	if (m_age > 12)
+	{
+		return 1;
+	}
+	return 0;
 }
 
 int Dog::getType()
@@ -49,28 +58,29 @@ int Dog::getType()
 	return Config::ANIMAL_DOG;
 }
 
-string Dog::Sound()
+string Dog::sound()
 {
 	return "Woof!";
 }
 
 void Dog::updateHearByTypeAnimal(int _type,int _numOfSound)
 {
-	if(_type==Config::ANIMAL_CAT)
-
-	m_countHear += _numOfSound;
-	if (m_countHear >= Config::MAX_HEAR_CHICKEN)
-	{
-		m_happyindex--;
-		m_countHear -= Config::MAX_HEAR_CHICKEN;
+	if (_type == Config::ANIMAL_CAT) {
+		m_countHear += _numOfSound;
+		if (m_countHear >= Config::MAX_HEAR_DOG)
+		{
+			m_happyindex--;
+			m_countHear -= Config::MAX_HEAR_DOG;
+		}
 	}
 
+	
 }
 
 void Dog::setSoundbyNum(int Num)
 {
 	for (int i = 0; i < Num; i++) {
-		Sound();
+		cout << sound() << endl;
 	}
 }
 
@@ -78,14 +88,27 @@ int Dog::Eat()
 {
 	if (m_age > 3 && m_happyindex >=3&& isEat==false )
 	{
-		Sound();
+		cout<<sound()<<endl;
 		isEat = true;
-		updateWeight();
+		
 		m_countEat++;
+		updateWeight();
 		return Config::NOTIFY_EAT_DOG;
 	}
 
-	return 0;
+	else
+	{
+		cout << m_name << " can not Eat!" << endl;
+		return 0;
+	}
+}
+
+void Dog::checkWeight()
+{
+	if (m_weight > Config::MAX_WEIGHT_CHICKEN)
+	{
+		m_weight = Config::MAX_WEIGHT_CHICKEN;
+	}
 }
 
 void Dog::updateWeight()
@@ -93,12 +116,13 @@ void Dog::updateWeight()
 	if (m_countEat == 2)
 	{
 		m_weight = m_weight + 1;
+		checkWeight();
 		m_countEat = 0;
 	}
 	
 }
 
-int Dog::Reproduce()
+int Dog::reproduce()
 {
 	if (m_age==22 && m_weight==2 && m_happyindex==10 && m_intelligentindex==10) {
 		cout << "Dog Reproduce" << endl;
@@ -107,20 +131,36 @@ int Dog::Reproduce()
 	return 0;
 }
 
-void Dog::GoOut()
+
+void Dog::checkHappyIndex()
 {
-	if (m_status == true)
+	if (m_happyindex > Config::MAX_HAPPY_INDEX)
 	{
-		m_happyindex += 2;
-		m_status = false;
-		m_numNotGoOut--;
+		m_happyindex = Config::MAX_HAPPY_INDEX;
 	}
-	
+	else if (m_happyindex < 0)
+	{
+		m_happyindex = 0;
+	}
 }
 
 void Dog::updateHappyIndex()
 {
 	m_happyindex--;
+	checkHappyIndex();
+}
+
+void Dog::goOut(int time)
+{
+	if (m_status == true && time >4)
+	{
+		m_happyindex += 2;
+		checkHappyIndex();
+		m_status = false;
+		m_numNotGoOut--;
+		cout << m_name << " go out" << endl;
+	}
+
 }
 
 void Dog::comeBack()
@@ -131,18 +171,16 @@ void Dog::comeBack()
 	}
 	
 }
+
  
-void Dog::Die()
-{
-	if (m_age == m_lifeTime&& m_countNotHappy==3) {
-		setSoundbyNum(2);
-		m_countNotHappy = 0;
-	}
-	
-}
 
 void Dog::showAttribute() {
-	cout << "Name: " << m_name << "Age:" << m_age << "HappyIndex: " << m_happyindex << "Status: " << m_status << endl;
+	string str;
+	if (m_status)
+		str = "In!";
+	else
+		str = "Go out!";
+	cout <<"DOG:|" << m_name << "\t|" << m_age << "\t|" << m_weight << "\t|" << m_happyindex << "\t\t" << "0" << "\t|" << str << endl;
 }
 
 void Dog::train()
@@ -152,17 +190,12 @@ void Dog::train()
 
 
 int Dog::notify(int _time) {
-	if (_time >4 && _time < 24) {
-		GoOut();
-	}
-	else {
-		cout << "Can not go out" << endl;
-	}
+	
 	if (_time == Config::TIME_SOUND_DOG) {
-		Sound();
+		cout << sound();
 		return Config::NOTIFY_ANIMAL_SOUND;
 	}
-	if (_time == 24) {
+	if (_time == 0) {
 		if (m_happyindex == 0) {
 			m_countNotHappy++;
 		}
@@ -172,11 +205,31 @@ int Dog::notify(int _time) {
 		comeBack();
 		isEat = false;
 		m_age++;
+		//Reproduce
 		if (m_age == Config::TIME_REPRODUCE_DOG) {
-			Reproduce();
-
+			return Config::NOTIFY_ANIMAL_REPRODUCE;
 		}
-		m_numNotGoOut++;
+		//Die
+		if (m_age >= Config::TIME_LEFT_DOG || m_countNotHappy == 3)
+		{
+			setSoundbyNum(Config::SOUND_DIE_DOG);
+			return Config::NOTIFY_ANIMAL_DIE;
+		}
+		//Set status, numNotGoOut and check numNotGoOut
+		if (m_status)
+		{
+			m_numNotGoOut++;
+			if (m_numNotGoOut == Config::NUM_OF_DAY_NOT_GO_OUT)
+			{
+				updateHappyIndex();
+				m_numNotGoOut = 0;
+			}
+		}
+		else
+		{
+			comeBack();
+			m_numNotGoOut = 0;
+		}
 	}
 	return 0;
 }

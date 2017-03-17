@@ -10,6 +10,7 @@
 #include "Animal.h"
 #include "ResourceManager.h"
 #include "Manager.h"
+#include "TimeManager.h"
 
 using namespace std;
 
@@ -17,15 +18,33 @@ using namespace std;
 class MacDonald
 {
 protected:
-	Animal* animal;
-	ResourceManager* resourceManager;
- 	Manager* manager;
-
+	 
+	Manager* m_manager;
+	TimeManager *timeManager;
 public:
 	//constructor
-	MacDonald();
+	int animalnametype;
+	int animaltypeout;
+	int animaltypeback;
+	int animaltypesell;
+	int buyanimaltype;
+	int buyanimaloption;
+	int selloptionanimal;
+	int optionanimal = 0;
+	string animalname;
+	string animalnameout;
+	string animalnameback;
+	string animatnamesell;
+
+	string buyanimalname;
+	string sellanimalname;
+
+	string buyname;
+	string sellname;
+	MacDonald(Manager*,TimeManager*);
+	void showMenu();
 	virtual ~MacDonald();
 	void showOption();
-	void Activities();
+	void Activities(int _time);
 };
 

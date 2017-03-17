@@ -15,19 +15,20 @@ public:
 	int getPriceBuy();
 	int getPriceSell();
 	int getType();
-	string Sound();
+	string sound();
 	void updateHearByTypeAnimal(int _type, int _numOfSound);
-	void updateHear(int _num);
 	void setSoundbyNum(int Num);
 	int Eat();
-	int Reproduce();
-	void GoOut();
+	void checkWeight();
+	int reproduce();
+	void goOut(int);
 	void updateHappyIndex();
 	void comeBack();
-	void Die();
+	void checkHappyIndex();
 	void showAttribute();
 	void updateWeight();
 	int getCountSound();
+	int checkSell();
 	int notify(int);
 };
 

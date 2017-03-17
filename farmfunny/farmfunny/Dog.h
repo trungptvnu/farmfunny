@@ -11,25 +11,26 @@ class Dog :
 protected:
 	const int maxweight = 7;
 public:
-	string sound();
-	int Reproduce();
-	void GoOut();
-	void updateHappyIndex();
-	void comeBack();
-	void Die();
-	void showAttribute();
-	void train();
-	void updateWeight();
 	Dog();
 	virtual ~Dog();
+	string sound();
+	int reproduce();
+	void goOut(int time);
+	void checkHappyIndex();
+	void updateHappyIndex();
+	void comeBack();
+	void showAttribute();
+	void train();
+	void checkWeight();
+	void updateWeight();
 	int getPriceBuy();
 	int getPriceSell();
+	int checkSell();
 	int getType();
-	string Sound();
 	void updateHearByTypeAnimal(int, int);
-	//void updateHear(int _num);
 	void setSoundbyNum(int Num);
 	int Eat();
+
 	int notify(int);
 };
 

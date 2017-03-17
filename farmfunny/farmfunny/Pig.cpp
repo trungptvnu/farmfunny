@@ -6,6 +6,7 @@
 #include<cmath>
 #include<time.h>
 #include<stdlib.h>
+#include <iomanip>
 
 
 Pig::Pig()
@@ -18,7 +19,8 @@ Pig::Pig()
 	m_happyindex = 7;
 	m_status = true;
 	isEat = false;
-	m_numNotGoOut = 1;
+	m_numNotGoOut = 0;
+	m_countEat = 0;
 	m_countNotHappy = 0;
 }
 
@@ -37,19 +39,28 @@ int Pig::getPriceSell()
 	return Config::PRICE_SELL_PIG;
 }
 
+int Pig::checkSell()
+{
+	if (m_weight > 2)
+	{
+		return 1;
+	}
+	return 0;
+}
+
 int Pig::getType()
 {
 	return Config::ANIMAL_PIG;
 }
 
-string Pig::Sound()
+string Pig::sound()
 {
 	return "Oink!";
 }
 void Pig::setSoundbyNum(int Num)
 {
 	for (int i = 0; i < Num; i++) {
-		Sound();
+		cout << sound() << endl;
 	}
 }
 
@@ -57,13 +68,26 @@ int Pig::Eat()
 {
 	if (m_age > 2 && m_happyindex >3 && isEat == false) 
 		{
-			Sound();
+			cout<<sound()<<endl;
 			isEat = true;
-			updateWeight();
+			
 			m_countEat++;
+			updateWeight();
 			return Config::NOTIFY_EAT_PIG;
 		}
-	return 0;
+	else
+	{
+		cout << m_name << " can not Eat!" << endl;
+		return 0;
+	}
+}
+
+void Pig::checkWeight()
+{
+	if (m_weight > Config::MAX_WEIGHT_CHICKEN)
+	{
+		m_weight = Config::MAX_WEIGHT_CHICKEN;
+	}
 }
 
 void Pig::updateWeight()
@@ -71,11 +95,12 @@ void Pig::updateWeight()
 	if (m_countEat == 2)
 	{
 		m_weight = m_weight + 1;
+		checkWeight();
 		m_countEat = 0;
 	}
 }
 
-int Pig::Reproduce()
+int Pig::reproduce()
 {
 	if (m_age==m_dayReproduce && m_weight==10)
 	{ 
@@ -88,27 +113,41 @@ int Pig::Reproduce()
 
 }
 
-void Pig::GoOut()
-{
-	if (m_status == true)
-	{
-		m_happyindex += 2;
-		m_status = false;
-		m_numNotGoOut--;
-	}
-	
 
-} 
+void Pig::checkHappyIndex()
+{
+	if (m_happyindex > Config::MAX_HAPPY_INDEX)
+	{
+		m_happyindex = Config::MAX_HAPPY_INDEX;
+	}
+	else if (m_happyindex < 0)
+	{
+		m_happyindex = 0;
+	}
+}
 
 void Pig::updateHappyIndex()
 {
 	m_happyindex--;
+	checkHappyIndex();
 }
 
 void Pig::updateHearByTypeAnimal(int _type, int _numOfSound) {
 
 }
 
+
+void Pig::goOut(int time)
+{
+	if (m_status == true && time>4)
+	{
+		m_happyindex += 2;
+		checkHappyIndex();
+		m_status = false;
+		m_numNotGoOut--;
+		cout << m_name << " go out" << endl;
+	}
+}
 void Pig::comeBack()
 {
 	if (m_status == false) {
@@ -116,24 +155,22 @@ void Pig::comeBack()
 		cout << m_name << " come back" << endl;
 	}
 }
-void Pig::Die()
-{
-	if (m_age == m_lifeTime&& m_countNotHappy==3) {
-		setSoundbyNum(3);
-		m_countNotHappy = 0;
-	}
-}
 
 void Pig::showAttribute() {
-	cout << "Name: " << m_name << "Age:" << m_age << "HappyIndex: " << m_happyindex << "Status: " << m_status << endl;
+	string str;
+	if (m_status)
+		str = "In!";
+	else
+		str = "Go out!";
+	cout <<"PIG:\t|" << m_name << "\t|" << m_age << "\t|" << m_weight << "\t|" << m_happyindex << "\t\t" << "0" << "\t|" << str << endl;
 }
 
 int Pig::notify(int _time)
 {
 	if (_time == Config::TIME_SOUND_PIG && isEat==false) {
-		Sound();
+		cout << sound();
 	}
-	else if(_time == 24) {
+	else if(_time == 0) {
 		if (m_happyindex == 0) {
 			m_countNotHappy++;
 		}
@@ -144,10 +181,29 @@ int Pig::notify(int _time)
 		isEat = false;
 		m_age++;
 		if (m_age == Config::TIME_REPRODUCE_PIG) {
-			Reproduce();
-
+			return Config::NOTIFY_ANIMAL_REPRODUCE;
 		}
-		m_numNotGoOut++;
+		//Die
+		if (m_age >= Config::TIME_LEFT_PIG || m_countNotHappy == 3)
+		{
+			setSoundbyNum(Config::SOUND_DIE_PIG);
+			return Config::NOTIFY_ANIMAL_DIE;
+		}
+		//Set status, numNotGoOut and check numNotGoOut
+		if (m_status)
+		{
+			m_numNotGoOut++;
+			if (m_numNotGoOut == Config::NUM_OF_DAY_NOT_GO_OUT)
+			{
+				updateHappyIndex();
+				m_numNotGoOut = 0;
+			}
+		}
+		else
+		{
+			comeBack();
+			m_numNotGoOut = 0;
+		}
 	}
 	return 0;
 }

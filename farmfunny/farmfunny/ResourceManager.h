@@ -1,10 +1,10 @@
 #pragma once
 class ResourceManager
 {	
-public:
+	public:
 	  int m_food;
 	  int m_money;
-	ResourceManager();
+	 
 	  int getFood()
 	{
 		return m_food;
@@ -32,6 +32,8 @@ public:
 			}
 			return 0;
 		}
+		 
+			ResourceManager();
 	virtual ~ResourceManager();
 };
 

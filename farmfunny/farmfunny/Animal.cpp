@@ -9,11 +9,7 @@
 using namespace std;
 
 
-int Animal::getCountSound()
-{
-	
-	return 0;
-}
+
 
 void Animal::updateWeight()
 {
@@ -44,3 +40,7 @@ Animal::~Animal()
 {
 }
 
+int Animal::checkSell()
+{
+	return 0;
+}
